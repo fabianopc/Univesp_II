@@ -1,0 +1,16 @@
+{% extends "cadastros/modelo.html" %}
+
+{% block conteudo %}
+  <h2>Lista de Clientes</h2>
+  <ul>
+    {% for cliente in object_list %}
+      <li>{{ cliente.nome }} - <a href="{% url 'cliente_update' cliente.pk %}">Editar</a> - <a href="{% url 'cliente_delete' cliente.pk %}">Excluir</a></li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'cliente_create' %}">Adicionar Cliente</a>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
