@@ -1,0 +1,85 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Pagina Inicial</title>
+{% endblock %}
+
+{% block destaque %}
+<section style="background-color: black;">
+  <img
+  src="{% static 'img/logo.jpg' %}" 
+  class="figure-img img-fluid roudend"
+  alt="Logo"
+  width="38%"
+  style="background-color: black;" />
+</section>
+{% endblock %}
+
+{% block horarios %}
+<section id='horafun' style="background-color: darkgray;">
+  <br><br><br><br>
+  <h2 id='horarios' class="text-center fs-2">HORÁRIOS DE FUNCIONAMENTO</h2>
+  <br>
+  <h5 class='text-center fs-5'><strong>Segunda-Quinta: </strong>19:00 ás 22:00 horas</h5>
+  <h5 class='text-center fs-5'><strong>Sexta-Sábado: </strong>18:00 ás 23:00 horas</h5>
+  <h5 class='text-center fs-5'><strong>Domingo: </strong>18:00 ás 22:00 horas</h5>
+  <br><br><br><br>
+</section>
+{% endblock %}
+
+{% block cardapio %}
+
+<br><br>
+<section>
+    <h2 id='ncardapio' class="text-center">CARDÁPIO</h2>
+    <br>
+</section>
+
+{% endblock %}
+
+{% block preto %}
+<section id="cardba" style="background-color: black;" class="container">
+  <br><br>
+  <div class="row">
+    {% for pizza in object_list %}
+  <div class="col-sm-4">
+    <div class="card">
+      <img src="{{ pizza.imagem.url }}" class="card-img-top" alt="Imagens de Pizzas">
+      <div class="card-body">
+        <h5 class="card-title text-center fs-4"><strong>{{ pizza.nome }}</strong></h5>
+        <p class="card-text text-center fs-6">{{ pizza.descricao }}</p>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+          <label class="form-check-label" for="inlineCheckbox1"><strong>P</strong> R${{ pizza.valor_p }}</label>
+        </div>
+        <div class="form-check form-check-inline text-center">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+          <label class="form-check-label" for="inlineCheckbox2"><strong>M</strong> R${{ pizza.valor_m }}</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+          <label class="form-check-label" for="inlineCheckbox3"><strong>G</strong> R${{ pizza.valor_g }}</label>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-warning fs-6"><strong>Fazer Pedido</strong></button>
+        </div>       
+        
+      </div>      
+    </div>   
+    <br>
+  </div>
+   <br> 
+  {% endfor %}
+    
+  </div>
+  <br><br>  
+  </div>
+    
+</section>
+{% endblock %}
+
+{% block conteudo %}
+
+{% endblock %}
+
