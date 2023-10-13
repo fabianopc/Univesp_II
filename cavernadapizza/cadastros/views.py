@@ -30,7 +30,7 @@ class ClienteEnderecoCreateView(CreateView):
 
         #Endereço associado ao usuário
         endereco = Endereco(
-                cliente=Cliente,
+                cliente=cliente,
                 endereco=form.cleaned_data['endereco'],
                 numero=form.cleaned_data['numero'],
                 complemento=form.cleaned_data['complemento'],
@@ -48,15 +48,32 @@ class ClienteEnderecoUpdateView(UpdateView):
     form_class = ClienteEnderecoForm
     template_name = 'cadastros/cliente_endereco_form.html'
 
-    def fom_valid(self, form):
-        #Atualiza o cliente
-        user = form.save(commit=False)
-        user.set_password(self.request.POST['password'])
-        user.save()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cliente = self.object
+        #Carrega as informacoes do Endereço associado ao cliente
+        endereco = Endereco.objects.get(cliente=cliente)
+        #Carrega as informacoes do usuario associado ao cliente
+        user = User.objects.get(cliente=cliente)
+        context['form'].initial.update({
+            'endereco': endereco.endereco,
+            'numero': endereco.numero,
+            'complemento': endereco.complemento,
+            'bairro': endereco.bairro,
+            'cidade': endereco.cidade,
+            'estado': endereco.estado,
+            'cep': endereco.cep,
+            'username': user.username,
+            'password': user.password,  # Isso exibirá a senha no campo (não recomendado em produção)
+        })
+        return context
 
+    def fom_valid(self, form):
+        # Atualizar o cliente com as informações do formulário
         cliente = form.save()
-        #Atualiza os campos do endereco se necessario
-        endereco = cliente.endereco
+
+        # Atualizar as informações do endereço associado ao cliente
+        endereco = Endereco.objects.get(cliente=cliente)
         endereco.endereco = form.cleaned_data['endereco']
         endereco.numero = form.cleaned_data['numero']
         endereco.complemento = form.cleaned_data['complemento']
@@ -66,6 +83,11 @@ class ClienteEnderecoUpdateView(UpdateView):
         endereco.cep = form.cleaned_data['cep']
         endereco.save()
 
+        # Atualizar as informações do usuário associado ao cliente
+        user = User.objects.get(cliente=cliente)
+        user.username = form.cleaned_data['username']
+        user.set_password(form.cleaned_data['password'])
+        user.save()
         return super().form_valid(form)
     sucess_url = reverse_lazy('cliente_list')
 

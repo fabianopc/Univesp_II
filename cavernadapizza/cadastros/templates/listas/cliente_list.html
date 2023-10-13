@@ -1,13 +1,31 @@
 {% extends "cadastros/modelo.html" %}
 
 {% block conteudo %}
-  <h2>Lista de Clientes</h2>
-  <ul>
-    {% for cliente in object_list %}
-      <li>{{ cliente.nome }} - <a href="{% url 'cliente_update' cliente.pk %}">Editar</a> - <a href="{% url 'cliente_delete' cliente.pk %}">Excluir</a></li>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'cliente_create' %}">Adicionar Cliente</a>
+  <br>
+  <h2>Lista de Clientes Registrados</h2>
+  <td>
+  <a href="{% url 'cliente_create' %}" class="btn btn-primary btn-sm">Adicionar Cliente</a>
+  </td>
+  <hr>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+	<tr>
+	  <th scope="col">Nome</th>
+	 <th scope="col">Opções</th>
+	</tr>
+      </thead>
+      <tbody>
+	{% for cliente in object_list %}
+	  <tr>
+	    <td>{{ cliente }}</td>
+	    <td><a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-warning btn-sm">Editar</a> - <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-danger btn-sm">Excluir</a></td>
+	  </tr>
+	{% endfor %}
+      </tbody>
+    </table>
+  </div>
+
 {% endblock %}
 
 {% block footer %}
