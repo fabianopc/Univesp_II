@@ -31,8 +31,8 @@
                   LISTAR
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                 
-                  <li><a class="dropdown-item" href="#">Pizzas</a></li>
+		  <li><a class="dropdown-item" href="{% url 'cliente_list' %}">Cliente</a></li>                
+                  <li><a class="dropdown-item" href="{% url 'pizza_list' %}">Pizzas</a></li>
                   <li><a class="dropdown-item" href="#">Pedido</a></li>
                 </ul>
               </li>              
@@ -44,7 +44,9 @@
                   CADASTRAR
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="#">Clientes</a></li>
+                  <li><a class="dropdown-item" href="{% url 'cliente_create' %}#">Clientes</a></li>
+		  <li><a class="dropdown-item" href="{% url 'pizza_create' %}#">Pizzas</a></li>
+		  <li><a class="dropdown-item" href="#">Pedidos</a></li>
                   
                 </ul>
               </li>              

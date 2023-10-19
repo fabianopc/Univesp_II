@@ -1,0 +1,45 @@
+{% extends 'cadastros/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<br>
+<h3>Lista de Campos registrados</h3>
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Nome</th>
+            <th>Pequena</th>
+            <th>Média</th>
+            <th>Grande</th>
+            <th>Descrição</th>
+            <th>Opções</th>
+        </tr>
+        {% for pizza in object_list %}
+        <tr>
+            <td>{{ pizza.nome }}</td>
+            <td>{{ pizza.valor_p }}</td>
+            <td>{{ pizza.valor_m }}</td>
+            <td>{{ pizza.valor_g }}</td>
+            <td>{{ pizza.descricao }}</td>            
+            <td>
+                <a href="#" class="btn btn-warning btn-sm">Editar</i></a>
+                <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="6"><strong><h6>Nenhum campo registrado</h6></strong></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}
+
+{% block footer%}
+
+{% endblock %}

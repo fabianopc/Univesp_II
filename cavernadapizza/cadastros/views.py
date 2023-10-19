@@ -1,12 +1,16 @@
-#from django.shortcuts import render
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from .models import Cliente, Endereco
-from .forms import ClienteEnderecoForm 
+from .models import Cliente, Endereco, Pizza
+from .forms import ClienteEnderecoForm, PizzaForm 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 # Create your views here.
+
+def index(request):
+    pizzas = Pizza.objects.all()
+    return render(request, 'paginas/index.html', {'pizzas':pizzas})
 
 ###################### CREATE ########################### 
 class ClienteEnderecoCreateView(CreateView):
@@ -42,6 +46,18 @@ class ClienteEnderecoCreateView(CreateView):
         endereco.save()
         return super().form_valid(form)
     success_url = reverse_lazy('cliente_list')
+
+class PizzaCreateView(CreateView):
+    model = Pizza
+    form_class = PizzaForm
+    template_name = 'cadastros/pizza_form.html'
+    sucess_url = reverse_lazy('pizza_list')
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+
+
 ###################### UPDATE ###########################
 class ClienteEnderecoUpdateView(UpdateView):
     model = Cliente
@@ -88,9 +104,17 @@ class ClienteEnderecoUpdateView(UpdateView):
         user.username = form.cleaned_data['username']
         user.set_password(form.cleaned_data['password'])
         user.save()
-        return super().form_valid(form)
-    sucess_url = reverse_lazy('cliente_list')
 
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('cliente_list')
+
+class PizzaUpdateView(UpdateView):
+    model = Pizza
+    form_class = PizzaForm
+    template_name = 'cadastros/pizza_form.html'
+    sucess_url = reverse_lazy('pizza_list')
 
 ###################### LISTAR ##########################
 class ClienteListView(ListView):
@@ -101,6 +125,9 @@ class EnderecoListView(ListView):
     model = Endereco    
     template_name = 'listas/endereco_list.html'
 
+class PizzaListView(ListView):
+    model = Pizza
+    template_name = 'listas/pizza_list.html'
 
 ###################### DELETE ###########################
 class ClienteEnderecoDeleteView(DeleteView):
@@ -108,4 +135,7 @@ class ClienteEnderecoDeleteView(DeleteView):
     template_name = 'cadastros/cliente_delete.html'
     success_url = reverse_lazy('cliente_list')
 
-
+class PizzaDeleteView(DeleteView):
+    model = Pizza
+    template_name = 'cadastros/pizza_delete.html'
+    success_url = reverse_lazy('pizza_list')
