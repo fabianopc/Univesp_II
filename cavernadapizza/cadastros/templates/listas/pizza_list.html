@@ -5,6 +5,9 @@
 {% block conteudo %}
 <br>
 <h3>Lista de Campos registrados</h3>
+<td>
+  <a href="{% url 'pizza_create' %}" class="btn btn-primary btn-sm">Adicionar Pizza</a>
+</td>
 <hr>
 <div class="table-responsive">
     <table class="table table-striped">
@@ -24,8 +27,8 @@
             <td>{{ pizza.valor_g }}</td>
             <td>{{ pizza.descricao }}</td>            
             <td>
-                <a href="#" class="btn btn-warning btn-sm">Editar</i></a>
-                <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+                <a href="{% url 'pizza_update' pizza.pk %}" class="btn btn-warning btn-sm">Editar</i></a>
+		<a href="{% url 'pizza_delete' pizza.pk %}" class="btn btn-danger btn-sm">Excluir</a>
             </td>
         </tr>
 

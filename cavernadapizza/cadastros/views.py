@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     pizzas = Pizza.objects.all()
-    return render(request, 'paginas/index.html', {'pizzas':pizzas})
+    return render(request, 'index.html', {'pizzas': pizzas})
 
 ###################### CREATE ########################### 
 class ClienteEnderecoCreateView(CreateView):
@@ -51,12 +51,11 @@ class PizzaCreateView(CreateView):
     model = Pizza
     form_class = PizzaForm
     template_name = 'cadastros/pizza_form.html'
-    sucess_url = reverse_lazy('pizza_list')
+#    sucess_url = reverse_lazy('pizza_list')
 
-    def form_valid(self, form):
-        form.instance.autor = self.request.user
-        return super().form_valid(form)
-
+#    return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy('pizza_list')
 
 ###################### UPDATE ###########################
 class ClienteEnderecoUpdateView(UpdateView):
@@ -114,7 +113,9 @@ class PizzaUpdateView(UpdateView):
     model = Pizza
     form_class = PizzaForm
     template_name = 'cadastros/pizza_form.html'
-    sucess_url = reverse_lazy('pizza_list')
+#    sucess_url = reverse_lazy('pizza_list')
+    def get_success_url(self):
+        return reverse_lazy('pizza_list')
 
 ###################### LISTAR ##########################
 class ClienteListView(ListView):
