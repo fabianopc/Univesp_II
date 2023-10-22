@@ -1,0 +1,49 @@
+{% extends "cadastros/modelo.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+<br>
+  <h3>Criar/Editar Endereço</h3>
+  <p>Preencha todos os campos obrigatórios</p>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+    <div class="row mb-3">
+      <div class="col-sm-5">
+          {{ form.endereco|as_crispy_field }}
+      </div>
+      <div class="col-sm-1">
+          {{ form.numero|as_crispy_field }}
+      </div>
+      <div class="col-sm-2">
+          {{ form.bairro|as_crispy_field }}
+      </div>
+      <div class="col-sm-3">
+          {{ form.cidade|as_crispy_field }}
+      </div>
+  </div>
+  <div class="row mb-3">
+      <div class="col-sm-1">
+          {{ form.estado|as_crispy_field }}
+      </div>
+      <div class="col-sm-2">
+          {{ form.cep|as_crispy_field }}
+      </div>
+  <div>
+    <tr>
+      <td>
+        <button type="submit" class="btn btn-primary">Cadastrar Endereço</button>
+        <a href="{% url 'cliente_create' %}" class="btn btn-secondary">Voltar para o Cliente</a>
+      </td> 
+    </tr>
+  </div>
+    
+  </form>  
+  
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
