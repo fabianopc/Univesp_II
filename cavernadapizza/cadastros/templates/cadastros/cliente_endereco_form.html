@@ -9,52 +9,12 @@
   <hr>
   <form method="post">
     {% csrf_token %}
-    <div class="row mb-3">
-      <div class="col-sm-8">
-      {{ form.nome|as_crispy_field }}
-      </div>
-      <div class="col-sm-2">
-      {{ form.username|as_crispy_field }}
-      </div>
-      <div class="col-sm-2">
-      {{ form.password|as_crispy_field }}
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-sm-5">
-      {{ form.endereco|as_crispy_field }}
-      </div>
-      <div class="col-sm-1">
-      {{ form.numero|as_crispy_field }}
-      </div>
-      <div class="col-sm-1">
-      {{ form.complemento|as_crispy_field }}
-      </div>
-      <div class="col-sm-2">
-      {{ form.bairro|as_crispy_field }}
-      </div>
-      <div class="col-sm-3">
-      {{ form.cidade|as_crispy_field }}
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-sm-2">
-      {{ form.cep|as_crispy_field }}
-      </div>
-      <div class="col-sm-1">
-      {{ form.estado|as_crispy_field }}
-      </div>
-      <div class="col-sm-3">
-      {{ form.telefone|as_crispy_field }}
-      </div>
-      <div class="col-sm-6">
-      {{ form.email|as_crispy_field }}
-      </div>
-
-    </div>
-
+    {{ form.as_p }}
+    {{ form.endereco_numero }}
     <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{% url 'cliente_list' %}" class="btn btn-secondary">Voltar para a lista</a>
   </form>
+  
 {% endblock %}
 
 {% block footer %}
