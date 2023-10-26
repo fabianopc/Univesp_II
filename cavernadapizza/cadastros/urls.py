@@ -13,7 +13,7 @@ urlpatterns = [
     path('cliente/list', ClienteListView.as_view(), name='cliente_list'),
     
     path('endereco/create', EnderecoCreateView.as_view(), name='endereco_create'),
-    path('endereco/list', EnderecoListView.as_view(), name='endereco_list'),
+    path('endereco/list', EnderecoListView.as_view(), name='endereco_list'),    
 
     path('pizza/list', PizzaListView.as_view(), name='pizza_list'),
     path('pizza/create', PizzaCreateView.as_view(), name='pizza_create'),

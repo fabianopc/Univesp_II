@@ -13,7 +13,7 @@
 
 {% block conteudo %}
 <br>
-<h3>Cadastro</h3>
+<h3>Criar/Editar Pizza</h3>
 
 <p class="lead">Preencha todos os campos obrigatorios</p>
 <hr>
@@ -21,8 +21,27 @@
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
     
 
-    {{ form|crispy }}    
-
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            {{ form.nome|as_crispy_field }}
+        </div>
+        <div class="col-sm-2">
+            {{ form.valor_p|as_crispy_field }}
+        </div>
+        <div class="col-sm-2">
+            {{ form.valor_m|as_crispy_field }}
+        </div>
+        <div class="col-sm-2">
+          {{ form.valor_g|as_crispy_field }}
+        </div>
+        <div class="col-sm-6">
+          {{ form.descricao|as_crispy_field }}
+        </div>
+        <div class="col-sm-6">
+            {{ form.imagem|as_crispy_field }}
+        </div>                
+    </div>
+    <hr>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
     
 </form>
