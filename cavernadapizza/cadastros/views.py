@@ -71,7 +71,7 @@ class ClienteUpdateView(UpdateView):
             'username': cliente.user.username,
             'password': ''  # A senha não é preenchida por razões de segurança
         })
-        
+
         context['form'].fields['password'].required = False
 
         return context
@@ -85,7 +85,7 @@ class ClienteUpdateView(UpdateView):
         cliente.email = form.cleaned_data['email']
         cliente.telefone = form.cleaned_data['telefone']
                 
-        #Obtem a instancia do endereço associado ao cliente
+        # Obtenha a instância do endereço associado ao cliente
         endereco = cliente.endereco
         endereco.endereco = form.cleaned_data['endereco']
         endereco.numero = form.cleaned_data['numero']
@@ -98,19 +98,18 @@ class ClienteUpdateView(UpdateView):
         user = cliente.user
         user.username = form.cleaned_data['username']
         
-        #Se uma nova senha for fornecida, atualize-a
-        password = form.cleaned_data_get('password')
+        # Se uma nova senha for fornecida, atualize-a
+        password = form.cleaned_data.get('password')
         if password:
             user.set_password(password)
             
-        #Salva as alterações
+        # Salve as alterações
         endereco.save()
         user.save()
         cliente.save()
         
         messages.success(self.request, 'Dados atualizados com sucesso')
         return redirect(self.get_success_url())
-
 
 class PizzaUpdateView(UpdateView):
     model = Pizza

@@ -25,7 +25,7 @@ class EnderecoForm(forms.ModelForm):
 class ClienteEnderecoUpdateForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = ['nome', 'email', 'telefone', 'endereco']
+        fields = ['nome', 'email', 'telefone']
         
     endereco = forms.CharField(max_length=200)
     numero = forms.IntegerField()
