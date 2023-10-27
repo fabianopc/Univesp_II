@@ -3,6 +3,8 @@ from django.conf.urls.static import static
 from django.urls import path
 from .views import ClienteCreateView, ClienteUpdateView, ClienteListView, ClienteDeleteView
 from .views import EnderecoCreateView, EnderecoListView
+from .views import PedidoCreateView, PedidoListView
+from .views import ItensPedidoCreateView
 from .views import PizzaListView, PizzaCreateView, PizzaUpdateView, PizzaDeleteView
 
 
@@ -19,6 +21,11 @@ urlpatterns = [
     path('pizza/create', PizzaCreateView.as_view(), name='pizza_create'),
     path('pizza/<int:pk>/update', PizzaUpdateView.as_view(), name='pizza_update'),
     path('pizza/<int:pk>/delete', PizzaDeleteView.as_view(), name='pizza_delete'),
+    
+    path('pedido/create', PedidoCreateView.as_view(), name='pedido_create'),
+    path('pedido/list', PedidoListView.as_view(), name='pedido_list'),
+    
+    path('itenspedido/create', ItensPedidoCreateView.as_view(), name='itenspedido_create'),
 ]
 
 if settings.DEBUG:

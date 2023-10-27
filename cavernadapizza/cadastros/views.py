@@ -1,11 +1,12 @@
+from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from .models import Cliente, Endereco, Pizza
-from .forms import ClienteForm, PizzaForm, EnderecoForm, ClienteEnderecoUpdateForm 
+from .models import Cliente, Endereco, Pizza, Pedido, ItensPedido
+from .forms import ClienteForm, PizzaForm, EnderecoForm, ClienteEnderecoUpdateForm, PedidoForm, ItensPedidoForm 
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -44,6 +45,26 @@ class PizzaCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('pizza_list')
+    
+class PedidoCreateView(CreateView):
+    model = Pedido
+    form_class = PedidoForm
+    template_name = 'cadastros/pedido_form.html'
+    success_url = reverse_lazy('pedido_list')
+    
+    def form_valid(self, form):
+        form.instance.cliente = self.request.user.cliente
+        return super().form_valid(form)
+    
+class ItensPedidoCreateView(CreateView):
+    model = ItensPedido
+    form_class = ItensPedidoForm
+    template_name = 'cadastros/itenspedido_form.html'
+    success_url = reverse_lazy('pedido_list')
+    
+    def form_valid(self, form):
+        form.instance.pedido = Pedido.objects.get(id=self.kwargs['pk'])
+        return super().form_valid(form)
 
 ###################### UPDATE ###########################
 class ClienteUpdateView(UpdateView):
@@ -132,6 +153,11 @@ class EnderecoListView(ListView):
 class PizzaListView(ListView):
     model = Pizza
     template_name = 'listas/pizza_list.html'
+    
+class PedidoListView(ListView):
+    model = Pedido
+    template_name = 'listas/pedido_list.html'
+    context_object_name = 'pedidos'
 
 ###################### DELETE ###########################
 class ClienteDeleteView(DeleteView):

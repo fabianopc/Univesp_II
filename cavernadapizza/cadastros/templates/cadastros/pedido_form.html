@@ -1,0 +1,25 @@
+{% extends "cadastros/modelo.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+  <br>
+  <h3>Criar/Editar Pedido</h3>
+  <p>Preencha todos os campos do pedido</p>
+  <hr>
+    
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    
+    <!-- Adicione um botão para criar um novo endereço -->
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{% url 'pedido_list' %}" class="btn btn-secondary">Voltar para pedido</a>
+  </form>
+  
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+

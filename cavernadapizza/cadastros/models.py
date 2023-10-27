@@ -35,3 +35,30 @@ class Pizza(models.Model):
     
     def __str__(self):
         return f"{self.nome}"
+    
+class Pedido(models.Model):
+    TIPOS_PAGAMENTO = (
+        ('Dinheiro', 'Dinheiro'),
+        ('Debito', 'Debito'),
+        ('Credito', 'Credito'),
+        ('Pix', 'Pix'),        
+    )
+    data_hora = models.DateTimeField()
+    valor_total = models.DecimalField(max_digits=5, decimal_places=2)
+    tipo_pagamento = models.CharField(max_length=15, choices=TIPOS_PAGAMENTO)
+    cliente = models.ForeignKey("Cliente", on_delete=models.CASCADE, related_name='pedidos')
+    
+    def __str__(self):
+        return f'{self.cliente} - {self.valor_total}'
+    
+class ItensPedido(models.Model):
+    item_id = models.IntegerField()
+    tipo_item = models.CharField(max_length=10)
+    quantidade = models.IntegerField()
+    preco_unitario = models.DecimalField(max_digits=5, decimal_places=2)
+    
+    pizza = models.ForeignKey("Pizza", on_delete=models.CASCADE, related_name='ItensPedido')
+    pedido = models.ForeignKey("Pedido", on_delete=models.CASCADE, related_name='ItensPedido')
+        
+    def __str__(self):
+        return f'{self.item_id} {self.tipo_item} - {self.quantidade} {self.preco_unitario}, ({self.pedido}'

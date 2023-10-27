@@ -1,7 +1,7 @@
 from django import forms
 #from django.contrib.auth.models import User
 from .models import Pizza
-from .models import Cliente, Endereco
+from .models import Cliente, Endereco, Pedido, ItensPedido
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -45,3 +45,15 @@ class PizzaForm(forms.ModelForm):
             'imagem': forms.FileInput(attrs={'accept': 'image/*'}),
 
         }
+        
+class PedidoForm(forms.ModelForm):
+    class Meta:
+        model = Pedido
+        fields = ['tipo_pagamento', 'data_hora', 'valor_total', 'cliente']
+        
+class ItensPedidoForm(forms.ModelForm):
+    class Meta:
+        model = ItensPedido
+        fields = ['item_id', 'tipo_item', 'quantidade', 'preco_unitario', 'pedido']
+        
+

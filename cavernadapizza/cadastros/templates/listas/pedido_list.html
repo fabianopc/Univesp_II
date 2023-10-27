@@ -1,0 +1,43 @@
+{% extends 'cadastros/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<br>
+<h3>Lista de Pedidos</h3>
+<hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID do Pedido</th>
+        <th>Data e Hora</th>
+        <th>Cliente</th>
+        <th>Valor Total (R$)</th>
+        <th>Tipo de Pagamento</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pedido in pedidos %}
+        <tr>
+          <td>{{ pedido.id }}</td>
+          <td>{{ pedido.data_hora }}</td>
+          <td>{{ pedido.pedido.nome }}</td>
+          <td>{{ pedido.valor_total }}</td>
+          <td>{{ pedido.get_tipo_pagamento_display }}</td>
+          <td>
+            <a href="{% url 'detalhes_pedido' pedido.id %}" class="btn btn-info">Detalhes</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <a href="{% url 'pedido_create' %}" class="btn btn-primary">Novo Pedido</a>
+</div>
+
+{% endblock %}
+
+{% block footer%}
+
+{% endblock %}
