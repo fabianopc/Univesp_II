@@ -51,9 +51,13 @@ class PedidoForm(forms.ModelForm):
         model = Pedido
         fields = ['tipo_pagamento', 'data_hora', 'valor_total', 'cliente']
         
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['data_hora'].widget = forms.DateTimeInput(attrs={'type': 'datetime-local'})
+        
 class ItensPedidoForm(forms.ModelForm):
     class Meta:
         model = ItensPedido
-        fields = ['item_id', 'tipo_item', 'quantidade', 'preco_unitario', 'pedido']
+        fields = ['item_id', 'tamanho', 'quantidade', 'preco_unitario', 'pedido']
         
 

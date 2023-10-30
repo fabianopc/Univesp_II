@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponse
@@ -158,6 +160,15 @@ class PedidoListView(ListView):
     model = Pedido
     template_name = 'listas/pedido_list.html'
     context_object_name = 'pedidos'
+    
+class ItensPedidoListView(ListView):
+    model = ItensPedido
+    template_name = 'listas/pedido_list.html'
+    context_object_name = 'itens_pedidos'
+    
+    def get_queryset(self):
+        pedido_id = self.kwargs['pedido_id']
+        return ItensPedido.objects.filter(pedido_id=pedido_id)
 
 ###################### DELETE ###########################
 class ClienteDeleteView(DeleteView):

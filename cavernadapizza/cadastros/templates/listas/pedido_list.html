@@ -6,35 +6,80 @@
 <br>
 <h3>Lista de Pedidos</h3>
 <hr>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID do Pedido</th>
-        <th>Data e Hora</th>
-        <th>Cliente</th>
-        <th>Valor Total (R$)</th>
-        <th>Tipo de Pagamento</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for pedido in pedidos %}
-        <tr>
-          <td>{{ pedido.id }}</td>
-          <td>{{ pedido.data_hora }}</td>
-          <td>{{ pedido.pedido.nome }}</td>
-          <td>{{ pedido.valor_total }}</td>
-          <td>{{ pedido.get_tipo_pagamento_display }}</td>
-          <td>
-            <a href="{% url 'detalhes_pedido' pedido.id %}" class="btn btn-info">Detalhes</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  
-  <a href="{% url 'pedido_create' %}" class="btn btn-primary">Novo Pedido</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID do Pedido</th>
+      <th>Data e Hora</th>
+      <th>Cliente</th>
+      <th>Valor Total (R$)</th>
+      <th>Tipo de Pagamento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pedido in pedidos %}
+    <tr>
+      <td>{{ pedido.id }}</td>
+      <td>{{ pedido.data_hora }}</td>
+      <td>{{ pedido.cliente.nome }}</td>
+      <td>{{ pedido.valor_total }}</td>
+      <td>{{ pedido.get_tipo_pagamento_display }}</td>
+      <td>
+        <!--
+        <a href="#" class="btn btn-info">Detalhes</a> -->
+
+        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop{{ pedido.id }}">Detalhes</button>
+        <!--Modal-->
+        {% for pedido in pedidos %}
+        <div class="modal fade" id="staticBackdrop{{ pedido.id }}" tabindex="-1" role="dialog" data-bs-backdrop="static"
+          data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ pedido.id }}"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-3" id="staticBackdropLabel{{ pedido.id }}">Detalhes do Pedido - {{ pedido.id }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h4>Informações do Pedido</h4>
+                <p><strong>Data e Hora:</strong> {{ pedido.data_hora }}</p>
+                <p><strong>Valor Total:</strong> R$ {{ pedido.valor_total }}</p>
+                <p><strong>Tipo de Pagamento:</strong> {{ pedido.tipo_pagamento }}</p>
+
+                <h4>Itens do Pedido</h4>
+                <ul>
+                  <!-- Lista de itens do pedido associados a este pedido -->
+                  {% for item in itens_pedido %}
+                  <li>{{ item.tamanho }} (Quantidade: {{ item.quantidade }})</li>
+                  {% endfor %}
+                </ul>
+
+                <h4>Cliente</h4>
+                <p><strong>Nome do Cliente:</strong> {{ pedido.cliente.nome }}</p>
+                <p><strong>Email do Cliente:</strong> {{ pedido.cliente.email }}</p>
+                <p><strong>Telefone do Cliente:</strong> {{ pedido.cliente.telefone }}</p>               
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'pedido_create' %}" class="btn btn-primary">Novo Pedido</a>
 </div>
+
+
 
 {% endblock %}
 

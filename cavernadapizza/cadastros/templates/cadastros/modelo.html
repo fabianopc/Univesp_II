@@ -2,97 +2,108 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block titulo %}
-    <title>Caverna da Pizza</title>
-    {% endblock %}
+  {% block titulo %}
+  <title>Caverna da Pizza</title>
+  {% endblock %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
 </head>
+
 <body>
-        
-    {% block menu %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-          <a class="navbar-brand" href="{% url 'index' %}">CAVERNA DA PIZZA</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-center" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav fs-5">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  LISTAR
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-		  <li><a class="dropdown-item" href="{% url 'cliente_list' %}">Cliente</a></li>                
-                  <li><a class="dropdown-item" href="{% url 'pizza_list' %}">Pizzas</a></li>
-                  <li><a class="dropdown-item" href="#">Pedido</a></li>
-                </ul>
-              </li>              
-            </ul>
-            
-            <ul class="navbar-nav fs-5">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  CADASTRAR
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{% url 'cliente_create' %}#">Clientes</a></li>
-		  <li><a class="dropdown-item" href="{% url 'pizza_create' %}#">Pizzas</a></li>
-		  <li><a class="dropdown-item" href="#">Pedidos</a></li>
-                  
-                </ul>
-              </li>              
-            </ul>    
 
-          </div>
-        </div>
-      </nav>    
-    {% endblock %}
-
+  {% block menu %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        {% block conteudo %}
-            <h3>Modelo</h3>
+      <a class="navbar-brand" href="{% url 'index' %}">CAVERNA DA PIZZA</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav fs-5">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              LISTAR
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="{% url 'cliente_list' %}">Cliente</a></li>
+              <li><a class="dropdown-item" href="{% url 'pizza_list' %}">Pizzas</a></li>
+              <li><a class="dropdown-item" href="{% url 'pedido_list' %}">Pedido</a></li>
+            </ul>
+          </li>
+        </ul>
 
-            <p>Conteudo do site</p>            
-            
-        {% endblock %}
+        <ul class="navbar-nav fs-5">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              CADASTRAR
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="{% url 'cliente_create' %}#">Clientes</a></li>
+              <li><a class="dropdown-item" href="{% url 'pizza_create' %}#">Pizzas</a></li>
+              <li><a class="dropdown-item" href="{% url 'pedido_create' %}">Pedidos</a></li>
+
+            </ul>
+          </li>
+        </ul>
+
+      </div>
     </div>
-    
+  </nav>
+  {% endblock %}
 
-    {% block footer %}
-      <footer class="bg-secondary text-white text-center">
-        <div id="rodape">
-          <div class="row">
-            <div>
-              <p class="fs-3">CONTATOS DA PIZZARIA</p>
-              <p class="fs-5"><i class="fas fa-phone me-1 text-white fs-5"></i>(11) 4569-7890 / 4569-7799</p>
-              <p class="fs-5"><i class="fas fa-envelope me-2 text-white fs-5"></i>atendimento@cavernadapizza.com.br</p>
-              <p class="fs-5"><i class="fas fa-home me-2 fs-5"></i>Rua das primaveras, 347 - Jardim Ferreira, Itapecerica da Serra - SP</p>
-              
-            </div>
+  <div class="container">
+    {% block conteudo %}
+    <h3>Modelo</h3>
+
+    <p>Conteudo do site</p>
+
+    {% endblock %}
+  </div>
 
 
-            <!-- Copyright -->
-            <div class="text-center p-3 bg-dark"> Caverna da Pizza | Todos os direitos reservados ©2023
-            
-            </div>
-    <!-- Copyright -->
+  {% block footer %}
+  <footer class="bg-secondary text-white text-center">
+    <div id="rodape">
+      <div class="row">
+        <div>
+          <p class="fs-3">CONTATOS DA PIZZARIA</p>
+          <p class="fs-5"><i class="fas fa-phone me-1 text-white fs-5"></i>(11) 4569-7890 / 4569-7799</p>
+          <p class="fs-5"><i class="fas fa-envelope me-2 text-white fs-5"></i>atendimento@cavernadapizza.com.br</p>
+          <p class="fs-5"><i class="fas fa-home me-2 fs-5"></i>Rua das primaveras, 347 - Jardim Ferreira, Itapecerica da
+            Serra - SP</p>
+
         </div>
-      </footer>
-    
-    {% endblock %}    
-    
-    <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+
+        <!-- Copyright -->
+        <div class="text-center p-3 bg-dark"> Caverna da Pizza | Todos os direitos reservados ©2023
+
+        </div>
+        <!-- Copyright -->
+      </div>
+  </footer>
+
+  {% endblock %}
+
+  <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
 
 </body>
+
 </html>
